@@ -26,10 +26,10 @@ interface UserFormProps {
 }
 
 const formSchema = z.object({
-  name: z.string().min(1),
-  email: z.string().email(),
-  image: z.string().optional().or(z.null()),
-  password: z.string(),
+  name: z.string().min(1) || null,
+  email: z.string().email() || null,
+  image: z.string().optional().or(z.null()) || null,
+  password: z.string() || null,
 });
 
 type UserFormValues = z.infer<typeof formSchema>;
@@ -44,6 +44,9 @@ function AccountForm({ initialData }: UserFormProps) {
   const defaultValues = initialData
     ? {
         ...initialData,
+        name: initialData.name || "",
+        email: initialData.email || "",
+        image: initialData.image || "",
         password: "",
       }
     : {

@@ -65,6 +65,9 @@ export const UserForm: React.FC<UserFormProps> = ({ initialData }) => {
   const defaultValues = initialData
     ? {
         ...initialData,
+        name: initialData.name || "",
+        email: initialData.email || "",
+        image: initialData.image || "",
         password: "",
       }
     : {
@@ -194,35 +197,7 @@ export const UserForm: React.FC<UserFormProps> = ({ initialData }) => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="categoryId"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Role</FormLabel>
-                <Select
-                  disabled={loading}
-                  onValueChange={field.onChange}
-                  value={field.value}
-                  defaultValue={field.value || "USER"}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue
-                        defaultValue={field.value}
-                        placeholder="Select a role"
-                      />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="ADMIN">admin</SelectItem>
-                    <SelectItem value="USER">user</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+
           <FormField
             control={form.control}
             name="password"
