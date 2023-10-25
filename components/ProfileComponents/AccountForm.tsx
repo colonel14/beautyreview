@@ -43,7 +43,6 @@ function AccountForm({ initialData }: UserFormProps) {
 
   const defaultValues = initialData
     ? {
-        ...initialData,
         name: initialData.name || "",
         email: initialData.email || "",
         image: initialData.image || "",

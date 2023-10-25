@@ -1,21 +1,10 @@
+import getProfileProducts from "@/actions/getProfileProducts";
 import { format } from "date-fns";
 import { DataTable } from "@/components/ui/data-table";
-import prismadb from "@/lib/prismadb";
-import { columns } from "./_Columns";
+import { columns } from "./Columns";
 
-async function ProfileProducts({ currentUser }) {
-  const products = await prismadb.product.findMany({
-    where: {
-      userId: currentUser.id,
-    },
-    include: {
-      category: true,
-      images: true,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+async function ProfileProducts() {
+  const products = await getProfileProducts();
 
   const formattedProducts = products.map((item) => ({
     id: item.id,

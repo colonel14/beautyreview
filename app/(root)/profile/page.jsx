@@ -1,11 +1,15 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ProfileProducts from "./_components/ProfileProducts";
-import AccountForm from "./_components/AccountForm";
+import ProfileProducts from "@/components/ProfileComponents/ProfileProducts";
+import AccountForm from "@/components/ProfileComponents/AccountForm";
+import prismadb from "@/lib/prismadb";
 
-async function ProfilePage() {
+export default async function ProfilePage() {
   const currentUser = await getCurrentUser();
+  if (!currentUser) {
+    return null;
+  }
 
   return (
     <div className="profile__page py-20">
@@ -28,11 +32,9 @@ async function ProfilePage() {
           <AccountForm initialData={currentUser} />
         </TabsContent>
         <TabsContent value="products">
-          <ProfileProducts currentUser={currentUser} />
+          <ProfileProducts products={products} />
         </TabsContent>
       </Tabs>
     </div>
   );
 }
-
-export default ProfilePage;

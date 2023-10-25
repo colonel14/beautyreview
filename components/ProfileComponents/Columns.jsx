@@ -1,6 +1,6 @@
 "use client";
 
-import { CellAction } from "./_cell-action";
+import { CellAction } from "./cell-action";
 
 export const columns = [
   {
