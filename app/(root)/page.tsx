@@ -1,12 +1,14 @@
 import React from "react";
 import Hero from "@/components/Home/Hero";
-import BestSeller from "@/components/Home/BestSeller";
+import RecommendedProducts from "@/components/Home/RecommendedProducts";
+import LatestProducts from "@/components/Home/LatestProducts";
 
 export default async function HomePage() {
   return (
     <main>
       <Hero />
-      <BestSeller />
+      <RecommendedProducts />
+      <LatestProducts />
     </main>
   );
 }

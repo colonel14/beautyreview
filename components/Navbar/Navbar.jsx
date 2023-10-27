@@ -7,6 +7,7 @@ function Navbar({ currentUser }) {
       <div className="app__navbar-links">
         <Link href="/">Home</Link>
         <Link href="/products">Products</Link>
+        <Link href="/contact">Contact Us</Link>
       </div>
       <div className="app__navbar-logo">
         <Link href="/">Beauty Review</Link>

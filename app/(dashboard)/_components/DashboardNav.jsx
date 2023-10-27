@@ -19,13 +19,18 @@ function DashboardNav() {
     },
     {
       href: `/dashboard/products`,
-      label: "products",
+      label: "Products",
       active: pathname === `/dashboard/products`,
     },
     {
       href: `/dashboard/categories`,
       label: "Categories",
       active: pathname === `/dashboard/categories`,
+    },
+    {
+      href: `/dashboard/contacts`,
+      label: "Emails",
+      active: pathname === `/dashboard/contacts`,
     },
   ];
 

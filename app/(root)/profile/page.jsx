@@ -32,7 +32,7 @@ export default async function ProfilePage() {
           <AccountForm initialData={currentUser} />
         </TabsContent>
         <TabsContent value="products">
-          <ProfileProducts products={products} />
+          <ProfileProducts  />
         </TabsContent>
       </Tabs>
     </div>

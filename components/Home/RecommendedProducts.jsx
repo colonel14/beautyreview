@@ -3,7 +3,7 @@ import ProductsCarousel from "../ProductsCarousel";
 import prismadb from "@/lib/prismadb";
 import { format } from "date-fns";
 
-async function BestSeller() {
+async function RecommendedProducts() {
   const products = await prismadb.product.findMany({
     take: 4,
     include: {
@@ -29,7 +29,7 @@ async function BestSeller() {
     <div className="home__section">
       <div className="section__header">
         <h2 className="section__heading">
-          Best <span className="heading__divider"></span> Products
+          Recommended <span className="heading__divider"></span> Products
         </h2>
         <Link href="/products" className="app__button">
           View Products <span className="app__button-arrow"></span>
@@ -40,4 +40,4 @@ async function BestSeller() {
   );
 }
 
-export default BestSeller;
+export default RecommendedProducts;

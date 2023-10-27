@@ -81,12 +81,12 @@ export default function LoginModal() {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <Button
+      {/* <Button
         outline
         label="Sign In with Google"
         icon={FcGoogle}
         onClick={() => signIn("google")}
-      />
+      /> */}
 
       <div className="text-neutral-500 text-center mb-4 font-light">
         <div className="flex flex-row justify-center items-center gap-2">
