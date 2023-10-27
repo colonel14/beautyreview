@@ -29,7 +29,7 @@ async function ProductDetailsPage({ params }) {
     },
   });
 
-  const allReview = await prisma.review.findMany({
+  const allReview = await prismadb.review.findMany({
     where: {
       productId: params.productId,
     },
