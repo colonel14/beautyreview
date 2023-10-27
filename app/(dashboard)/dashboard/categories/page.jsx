@@ -2,6 +2,8 @@ import { format } from "date-fns";
 import prismadb from "@/lib/prismadb";
 import CategoriesClient from "./_components/_CategoriesClient";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProductsPage() {
   const categories = await prismadb.category.findMany({
     orderBy: {

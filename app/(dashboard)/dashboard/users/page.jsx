@@ -3,6 +3,8 @@ import { format } from "date-fns";
 import prismadb from "@/lib/prismadb";
 import UsersClient from "./_components/_UsersClient";
 
+export const dynamic = "force-dynamic";
+
 async function UsersPage() {
   const users = await prismadb.user.findMany({
     orderBy: {

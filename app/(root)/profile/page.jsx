@@ -3,7 +3,8 @@ import getCurrentUser from "@/actions/getCurrentUser";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ProfileProducts from "@/components/ProfileComponents/ProfileProducts";
 import AccountForm from "@/components/ProfileComponents/AccountForm";
-import prismadb from "@/lib/prismadb";
+
+export const dynamic = "force-dynamic";
 
 export default async function ProfilePage() {
   const currentUser = await getCurrentUser();
@@ -32,7 +33,7 @@ export default async function ProfilePage() {
           <AccountForm initialData={currentUser} />
         </TabsContent>
         <TabsContent value="products">
-          <ProfileProducts  />
+          <ProfileProducts />
         </TabsContent>
       </Tabs>
     </div>

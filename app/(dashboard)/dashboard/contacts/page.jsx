@@ -2,6 +2,8 @@ import { format } from "date-fns";
 import prismadb from "@/lib/prismadb";
 import ContactsClient from "./_components/_ContactsClient";
 
+export const dynamic = "force-dynamic";
+
 export default async function ContactsPage() {
   const contacts = await prismadb.contact.findMany({
     orderBy: {
