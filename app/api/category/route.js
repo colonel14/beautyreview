@@ -8,7 +8,7 @@ export async function POST(req) {
 
     const body = await req.json();
 
-    const { name } = body;
+    const { name, catType, parentId } = body;
 
     if (!currentUser) {
       return new NextResponse("Unauthenticated", { status: 403 });
@@ -21,6 +21,8 @@ export async function POST(req) {
     const category = await prismadb.category.create({
       data: {
         name,
+        type: catType,
+        parentId,
       },
     });
 

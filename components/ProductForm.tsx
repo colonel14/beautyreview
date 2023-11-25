@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
@@ -36,10 +36,15 @@ import {
 } from "./ui/select";
 
 const formSchema = z.object({
-  title: z.string().min(1),
+  title: z.string({ required_error: "Title is required" }).min(1),
   description: z.string(),
   images: z.object({ url: z.string() }).array(),
-  categoryId: z.string().min(1),
+  categoryId: z.string({}).min(1, { message: "Please select a value!" }),
+  skinType: z.string({}).min(1, { message: "Please select a value!" }),
+  skinConcern: z.string().min(1, { message: "Please select a value!" }),
+  price: z.coerce
+    .number({ invalid_type_error: "Please provide a price for the product" })
+    .min(1),
 });
 
 type ProductFormValues = z.infer<typeof formSchema>;
@@ -77,6 +82,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         description: "",
         images: [],
         categoryId: "",
+        skinType: "",
+        skinConcern: "",
       };
 
   const form = useForm<ProductFormValues>({
@@ -189,7 +196,24 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               </FormItem>
             )}
           />
-
+          <FormField
+            control={form.control}
+            name="price"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Price</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    disabled={loading}
+                    placeholder="9.99"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="categoryId"
@@ -216,6 +240,68 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                         {category.name}
                       </SelectItem>
                     ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="skinType"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>What is your Skin Type?</FormLabel>
+                <Select
+                  disabled={loading}
+                  onValueChange={field.onChange}
+                  value={field.value}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue
+                        defaultValue={field.value}
+                        placeholder="Select a Skin type"
+                      />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="dry">Dry</SelectItem>
+                    <SelectItem value="Oily">Oily</SelectItem>
+                    <SelectItem value="Combination">Combination</SelectItem>
+                    <SelectItem value="Sensitive">Sensitive</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="skinConcern"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Do you have any speific skin concerns?</FormLabel>
+                <Select
+                  disabled={loading}
+                  onValueChange={field.onChange}
+                  value={field.value}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue
+                        defaultValue={field.value}
+                        placeholder="Select a Skin concern"
+                      />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="Acne">Acne</SelectItem>
+                    <SelectItem value="Aging">Aging</SelectItem>
+                    <SelectItem value="Pigmentation">Pigmentation</SelectItem>
+                    <SelectItem value="No">No</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />

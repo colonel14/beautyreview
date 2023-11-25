@@ -31,7 +31,7 @@
     "seed.js",
     "**/*.jsx",
     "app/api/review/route.js",
-    "prisma/seed.js"
+    "prisma/seed.ts"
   ],
   "exclude": ["node_modules"]
 }

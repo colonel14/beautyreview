@@ -50,7 +50,17 @@ model Account {
 }
 
 
-
+model Recommendation {
+  id               String    @id @default(cuid())
+  userId           String    @unique
+  selectedType     String?   
+  selectedCategory String?   
+  skinType         String?  
+  budget           String?   
+  wantsTopRated    String?  
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
 
 
 model Product {
@@ -62,6 +72,9 @@ model Product {
   category      Category  @relation( fields: [categoryId], references: [id])
   images        Image[]   // Relation to Image model
   Review        Review[]  // Relation to Preview model
+  skinType      String  
+  skinConcern   String  
+  price         Float   
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
@@ -72,22 +85,33 @@ model Product {
 }
 
 model Category {
-  id          String      @id @default(cuid())
-  name        String
-  products    Product[]   @relation()
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id              String      @id @default(cuid())
+  name            String
+  type            String?
 
+  parentId        String?
+  subcategories   Category[]  @relation("Subcategories")
+  parent          Category?   @relation("Subcategories", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  products        Product[]   @relation()
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
 }
 
 model Review {
-  id        Int     @id @default(autoincrement())
-  rating    Int
-  comment String
-  productId String
-  Product Product @relation(fields: [productId],references: [id],onDelete: Cascade)
-  userId String
-  User User @relation(fields: [userId],references: [id],onDelete: Cascade)
+  id                      Int     @id @default(autoincrement())
+  overallSatisfaction     Int
+  reasonablyPriced        Int 
+  qualityRating           Int
+  effectivenessRating     Int
+  packagingRating         Int 
+  skinMatchRating         Int
+  recommendToOthers       String
+
+  comment                 String
+  productId               String
+  Product                 Product @relation(fields: [productId],references: [id],onDelete: Cascade)
+  userId                  String
+  User                    User @relation(fields: [userId],references: [id],onDelete: Cascade)
 
 
   @@index([productId])
@@ -115,3 +139,5 @@ model Contact {
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
 }
+
+

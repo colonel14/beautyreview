@@ -18,7 +18,7 @@ function _CategoriesClient({ data }) {
           title={`Categories (${data.length})`}
           description="Manage categories for your store"
         />
-        <Button onClick={() => router.push(`/dashboard/categories/new`)}>
+        <Button onClick={() => router.push(`/dashboard/skincare/new`)}>
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Button>
       </div>

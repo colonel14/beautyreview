@@ -1,23 +1,23 @@
 import { format } from "date-fns";
-
 import prismadb from "@/lib/prismadb";
-import UsersClient from "./_components/_UsersClient";
+import CategoriesClient from "./_components/_CategoriesClient";
 
 export const dynamic = "force-dynamic";
 
-async function UsersPage() {
-  const users = await prismadb.user.findMany({
+export default async function ProductsPage() {
+  const categories = await prismadb.category.findMany({
+    where: {
+      type: "Skincare",
+      parentId: null,
+    },
     orderBy: {
-      createdAt: "desc",
+      createdAt: "asc",
     },
   });
 
-  const formattedUsers = users.map((item) => ({
+  const formattedCategories = categories.map((item) => ({
     id: item.id,
     name: item.name,
-    email: item.email,
-    image: item.image,
-    role: item.role,
     createdAt: format(item.createdAt, "MMMM do, yyyy"),
     updatedAt: format(item.updatedAt, "MMMM do, yyyy"),
   }));
@@ -25,10 +25,8 @@ async function UsersPage() {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <UsersClient data={formattedUsers} />
+        <CategoriesClient data={formattedCategories} />
       </div>
     </div>
   );
 }
-
-export default UsersPage;

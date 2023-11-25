@@ -27,7 +27,6 @@ function ContactForm() {
     } finally {
       setIsLoading(false);
     }
-    console.log(data);
   };
 
   return (

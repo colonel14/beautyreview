@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import toast from "react-hot-toast";
 import useLoginModal from "@/hooks/useLoginModal";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 
 type Props = {
   productId?: string;
@@ -26,7 +27,13 @@ type Props = {
 };
 
 const formSchema = z.object({
-  rating: z.number(),
+  overallSatisfaction: z.number(),
+  reasonablyPriced: z.number(),
+  qualityRating: z.number(),
+  effectivenessRating: z.number(),
+  packagingRating: z.number(),
+  skinMatchRating: z.number(),
+  recommendToOthers: z.string(),
   comment: z.string().min(1),
 });
 
@@ -40,7 +47,13 @@ const ReviewForm = ({ productId, userId }: Props) => {
   const [loading, setLoading] = useState(false);
 
   const defaultValues = {
-    star: 0,
+    overallSatisfaction: 0,
+    reasonablyPriced: 0,
+    qualityRating: 0,
+    effectivenessRating: 0,
+    packagingRating: 0,
+    skinMatchRating: 0,
+    recommendToOthers: "false",
     comment: "",
   };
 
@@ -90,23 +103,145 @@ const ReviewForm = ({ productId, userId }: Props) => {
         >
           <FormField
             control={form.control}
-            name="rating"
+            name="overallSatisfaction"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Give Rating</FormLabel>
+                <FormLabel>
+                  How Satisfied are you with the product overall?
+                </FormLabel>
                 <FormControl>
                   <ReactStars
                     {...field}
                     size={17}
                     isEdit={true}
-                    activeColors={[
-                      "red",
-                      "orange",
-                      "#FFCE00",
-                      "#9177FF",
-                      "#8568FC",
-                    ]}
+                    activeColors={["red", "orange", "orange", "#FFCE00"]}
                   />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="reasonablyPriced"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  Do you think the product reasonably priced?
+                </FormLabel>
+                <FormControl>
+                  <ReactStars
+                    {...field}
+                    size={17}
+                    isEdit={true}
+                    activeColors={["red", "orange", "orange", "#FFCE00"]}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="qualityRating"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Rate the quality of the product?</FormLabel>
+                <FormControl>
+                  <ReactStars
+                    {...field}
+                    size={17}
+                    isEdit={true}
+                    activeColors={["red", "orange", "orange", "#FFCE00"]}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="effectivenessRating"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  How effective was the product in achieving its stated purpose?
+                </FormLabel>
+                <FormControl>
+                  <ReactStars
+                    {...field}
+                    size={17}
+                    isEdit={true}
+                    activeColors={["red", "orange", "orange", "#FFCE00"]}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="packagingRating"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Rate the packaging of the product?</FormLabel>
+                <FormControl>
+                  <ReactStars
+                    {...field}
+                    size={17}
+                    isEdit={true}
+                    activeColors={["red", "orange", "orange", "#FFCE00"]}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="skinMatchRating"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>How well the product matched your skin?</FormLabel>
+                <FormControl>
+                  <ReactStars
+                    {...field}
+                    size={17}
+                    isEdit={true}
+                    activeColors={["red", "orange", "orange", "#FFCE00"]}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="recommendToOthers"
+            render={({ field }) => (
+              <FormItem className="space-y-3">
+                <FormLabel>
+                  Would you recommed this product to ther other?
+                </FormLabel>
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    className="flex items-center gap-5"
+                  >
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="false" />
+                      </FormControl>
+                      <FormLabel className="font-normal">False</FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="true" />
+                      </FormControl>
+                      <FormLabel className="font-normal">True</FormLabel>
+                    </FormItem>
+                  </RadioGroup>
                 </FormControl>
                 <FormMessage />
               </FormItem>

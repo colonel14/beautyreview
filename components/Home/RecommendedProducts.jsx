@@ -1,29 +1,39 @@
+"use client";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import ProductsCarousel from "../ProductsCarousel";
-import prismadb from "@/lib/prismadb";
-import { format } from "date-fns";
+import axios from "axios";
 
-async function RecommendedProducts() {
-  const products = await prismadb.product.findMany({
-    take: 4,
-    include: {
-      images: true,
-      Review: true,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+function RecommendedProducts() {
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const formattedProducts = products.map((item) => ({
-    id: item.id,
-    title: item.title,
-    description: item.description,
-    review: item.Review,
-    images: item.images,
-    createdAt: format(item.createdAt, "MMMM do, yyyy"),
-    updatedAt: format(item.updatedAt, "MMMM do, yyyy"),
-  }));
+  useEffect(() => {
+    async function fetchRecommendation() {
+      setIsLoading(true);
+
+      let categories = [];
+
+      const storedCategories = localStorage.getItem("viewedCategories");
+      if (storedCategories) {
+        categories = JSON.parse(storedCategories);
+      }
+
+      try {
+        const response = await axios.post("/api/recommendation", {
+          categories,
+        });
+        const data = response.data;
+        setRecommendedProducts(data);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        console.log(error);
+      }
+    }
+
+    fetchRecommendation();
+  }, []);
 
   return (
     <div className="home__section">
@@ -35,7 +45,11 @@ async function RecommendedProducts() {
           View Products <span className="app__button-arrow"></span>
         </Link>
       </div>
-      <ProductsCarousel products={formattedProducts} />
+      {isLoading ? (
+        "Loading..."
+      ) : (
+        <ProductsCarousel products={recommendedProducts} />
+      )}
     </div>
   );
 }

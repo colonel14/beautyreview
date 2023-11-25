@@ -6,8 +6,12 @@ export const dynamic = "force-dynamic";
 
 export default async function ProductsPage() {
   const categories = await prismadb.category.findMany({
+    where: {
+      type: "Makeup",
+      parentId: null,
+    },
     orderBy: {
-      createdAt: "desc",
+      createdAt: "asc",
     },
   });
 

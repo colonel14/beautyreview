@@ -9,10 +9,22 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { Avatar, AvatarImage } from "./ui/avatar";
 
-const ReviewItem = ({ id, rating, comment, userId, currentUser }) => {
-  console.log(currentUser);
-
+const ReviewItem = ({
+  id,
+  overallSatisfaction,
+  reasonablyPriced,
+  qualityRating,
+  effectivenessRating,
+  packagingRating,
+  skinMatchRating,
+  recommendToOthers,
+  comment,
+  User,
+  userId,
+  currentUser,
+}) => {
   const router = useRouter();
 
   const onDelete = async () => {
@@ -28,13 +40,65 @@ const ReviewItem = ({ id, rating, comment, userId, currentUser }) => {
   return (
     <div>
       <div className="flex items-start justify-between">
-        <div>
-          <ReactStars
-            value={rating}
-            isEdit={true}
-            activeColors={["red", "orange", "#FFCE00", "#9177FF", "#8568FC"]}
-          />
-          <p className="mt-2">{comment}</p>
+        <div className="flex-1 flex items-start">
+          <div className="flex-1 flex gap-4 items-center">
+            <Avatar>
+              <AvatarImage src={User?.image || "/images/placeholder.jpg"} />
+            </Avatar>
+            <div>
+              <h5 className="font-bold">{User.name}</h5>
+              <p className="">{comment}</p>
+            </div>
+          </div>
+
+          <div className="flex-1">
+            <div className="flex items-center gap-2 font-bold">
+              Overall Satisfaction:
+              <ReactStars
+                value={overallSatisfaction}
+                isEdit={false}
+                activeColors={["red", "orange", "orange", "#FFCE00"]}
+              />
+            </div>
+            <div className="flex items-center gap-2 font-bold">
+              Reasonably Priced:
+              <ReactStars
+                value={reasonablyPriced}
+                isEdit={false}
+                activeColors={["red", "orange", "orange", "#FFCE00"]}
+              />
+            </div>
+            <div className="flex items-center gap-2 font-bold">
+              Quality:
+              <ReactStars
+                value={qualityRating}
+                isEdit={false}
+                activeColors={["red", "orange", "orange", "#FFCE00"]}
+              />
+            </div>
+            <div className="flex items-center gap-2 font-bold">
+              Effectiveness:
+              <ReactStars
+                value={effectivenessRating}
+                isEdit={false}
+                activeColors={["red", "orange", "orange", "#FFCE00"]}
+              />
+            </div>
+            <div className="flex items-center gap-2 font-bold">
+              Packaging:
+              <ReactStars
+                value={packagingRating}
+                isEdit={false}
+                activeColors={["red", "orange", "orange", "#FFCE00"]}
+              />
+            </div>
+            <div className="flex items-center gap-2 font-bold">
+              Would Recommend:
+              <span className="font-normal">
+                {recommendToOthers == "true" ? "Yes" : "No"}
+              </span>
+            </div>
+          </div>
         </div>
         {currentUser && currentUser.id === userId && (
           <Button

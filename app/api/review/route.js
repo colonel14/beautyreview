@@ -8,7 +8,18 @@ export async function POST(req) {
 
     const body = await req.json();
 
-    const { comment, rating, userId, productId } = body;
+    const {
+      comment,
+      overallSatisfaction,
+      reasonablyPriced,
+      qualityRating,
+      effectivenessRating,
+      packagingRating,
+      skinMatchRating,
+      recommendToOthers,
+      userId,
+      productId,
+    } = body;
 
     if (!currentUser) {
       return new NextResponse("Unauthenticated", { status: 403 });
@@ -17,13 +28,16 @@ export async function POST(req) {
     if (!comment) {
       return new NextResponse("Comment is required", { status: 400 });
     }
-    if (!rating) {
-      return new NextResponse("Review is required", { status: 400 });
-    }
 
     const review = await prismadb.review.create({
       data: {
-        rating,
+        overallSatisfaction,
+        reasonablyPriced,
+        qualityRating,
+        effectivenessRating,
+        packagingRating,
+        skinMatchRating,
+        recommendToOthers,
         comment,
         productId,
         userId,
@@ -32,6 +46,7 @@ export async function POST(req) {
 
     return NextResponse.json(review);
   } catch (error) {
+    console.log(error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }

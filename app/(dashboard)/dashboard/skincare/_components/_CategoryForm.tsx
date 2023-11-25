@@ -66,10 +66,13 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
       if (initialData) {
         await axios.patch(`/api/category/${params.categoryId}`, data);
       } else {
-        await axios.post(`/api/category`, data);
+        await axios.post(`/api/category`, {
+          name: data.name,
+          catType: "Skincare",
+        });
       }
       router.refresh();
-      router.push(`/dashboard/categories`);
+      router.push(`/dashboard/skincare`);
       toast.success(toastMessage);
     } catch (error: any) {
       toast.error(error.response.data);
@@ -83,7 +86,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
       setLoading(true);
       await axios.delete(`/api/category/${params.categoryId}`);
       router.refresh();
-      router.push(`/dashboard/categories`);
+      router.push(`/dashboard/skincare`);
       toast.success("Category deleted.");
     } catch (error: any) {
       toast.error("Something went wrong.");

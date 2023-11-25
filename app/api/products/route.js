@@ -8,7 +8,15 @@ export async function POST(req) {
 
     const body = await req.json();
 
-    const { title, images, description, categoryId } = body;
+    const {
+      title,
+      images,
+      price,
+      skinType,
+      skinConcern,
+      description,
+      categoryId,
+    } = body;
 
     if (!currentUser) {
       return new NextResponse("Unauthenticated", { status: 403 });
@@ -16,6 +24,15 @@ export async function POST(req) {
 
     if (!title) {
       return new NextResponse("Title is required", { status: 400 });
+    }
+    if (!price) {
+      return new NextResponse("Price is required", { status: 400 });
+    }
+    if (!skinType) {
+      return new NextResponse("Skin Type is required", { status: 400 });
+    }
+    if (!skinConcern) {
+      return new NextResponse("Skin Concern is required", { status: 400 });
     }
     if (!description) {
       return new NextResponse("Description is required", { status: 400 });
@@ -32,6 +49,9 @@ export async function POST(req) {
     const product = await prismadb.product.create({
       data: {
         title,
+        price,
+        skinType,
+        skinConcern,
         userId: currentUser.id,
         description,
         categoryId,

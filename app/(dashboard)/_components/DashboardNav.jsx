@@ -23,9 +23,14 @@ function DashboardNav() {
       active: pathname === `/dashboard/products`,
     },
     {
-      href: `/dashboard/categories`,
-      label: "Categories",
-      active: pathname === `/dashboard/categories`,
+      href: `/dashboard/makeup`,
+      label: "Makeup",
+      active: pathname === `/dashboard/makeup`,
+    },
+    {
+      href: `/dashboard/skincare`,
+      label: "Skincare",
+      active: pathname === `/dashboard/skincare`,
     },
     {
       href: `/dashboard/contacts`,

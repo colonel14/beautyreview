@@ -1,10 +1,11 @@
 import getCurrentUser from "@/actions/getCurrentUser";
+import ClientLocal from "@/components/ClientLocal";
 import Gallery from "@/components/Gallery";
+import RatingChart from "@/components/RatingChart";
 import ReviewForm from "@/components/ReviewForm";
 import ReviewItem from "@/components/ReviewItem";
 import { Separator } from "@/components/ui/separator";
 import prismadb from "@/lib/prismadb";
-import { Star } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
@@ -24,31 +25,67 @@ async function ProductDetailsPage({ params }) {
           image: true,
         },
       },
+      Review: {
+        select: {
+          overallSatisfaction: true,
+          reasonablyPriced: true,
+          qualityRating: true,
+          effectivenessRating: true,
+          packagingRating: true,
+          skinMatchRating: true,
+        },
+      },
       category: true,
       images: true,
     },
   });
 
   const allReview = await prismadb.review.findMany({
+    include: {
+      User: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          image: true,
+        },
+      },
+    },
     where: {
       productId: params.productId,
     },
   });
 
-  let averageRating = 0;
-  if (allReview.length > 0) {
-    const totalRating = allReview.reduce((acc, review) => {
-      return acc + review.rating;
-    }, 0);
-    averageRating = totalRating / allReview.length;
-  }
-
   if (!product) {
     return <div>Product id not fount</div>;
   }
 
+  const reviews = product.Review;
+  const numReviews = reviews.length;
+
+  // Calculate average ratings
+  const averageRatings = {
+    overallSatisfaction: calculateAverage(
+      reviews.map((r) => r.overallSatisfaction)
+    ),
+    reasonablyPriced: calculateAverage(reviews.map((r) => r.reasonablyPriced)),
+    qualityRating: calculateAverage(reviews.map((r) => r.qualityRating)),
+    effectivenessRating: calculateAverage(
+      reviews.map((r) => r.effectivenessRating)
+    ),
+    packagingRating: calculateAverage(reviews.map((r) => r.packagingRating)),
+    skinMatchRating: calculateAverage(reviews.map((r) => r.skinMatchRating)),
+  };
+
+  // Helper function to calculate average of an array of numbers
+  function calculateAverage(arr) {
+    const sum = arr.reduce((acc, val) => acc + val, 0);
+    return sum / arr.length;
+  }
+
   return (
     <div className="details__page">
+      <ClientLocal product={product} currentUser={currentUser} />
       <div className="container">
         <div className="px-4 py-10 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
@@ -57,12 +94,23 @@ async function ProductDetailsPage({ params }) {
               <span className="product__category">{product.category.name}</span>
               <div className="flex justify-between items-center">
                 <h3 className="product__title">{product.title}</h3>
-                <div className="flex items-center gap-1 text-[#FFCE00] text-lg">
-                  {averageRating} <Star className="h-5 w-5" fill="#FFCE00" />
-                </div>
               </div>
-              <h3 className="product__desc">{product.description}</h3>
+              <div className="my-3 space-y-1">
+                <p>
+                  <span className="font-bold">Price: </span>
+                  {product.price} RS
+                </p>
+                <p>
+                  <span className="font-bold">Skin Type: </span>
+                  {product.skinType}
+                </p>
+                <p>
+                  <span className="font-bold">Skin Concern: </span>
+                  {product.skinConcern}
+                </p>
+              </div>
 
+              <h3 className="product__desc">{product.description}</h3>
               <Separator className="my-7" />
               <div className="product__owner">
                 <Image
@@ -79,6 +127,8 @@ async function ProductDetailsPage({ params }) {
                   </h6>
                 </div>
               </div>
+              <Separator className="my-7" />
+              <RatingChart averageRatings={averageRatings} />
             </div>
           </div>
         </div>

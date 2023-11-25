@@ -8,7 +8,15 @@ export async function PATCH(req, { params }) {
 
     const body = await req.json();
 
-    const { title, images, description, categoryId } = body;
+    const {
+      title,
+      images,
+      price,
+      skinType,
+      skinConcern,
+      description,
+      categoryId,
+    } = body;
 
     if (!currentUser) {
       return new NextResponse("Unauthenticated", { status: 403 });
@@ -21,6 +29,17 @@ export async function PATCH(req, { params }) {
     if (!title) {
       return new NextResponse("Title is required", { status: 400 });
     }
+
+    if (!price) {
+      return new NextResponse("Price is required", { status: 400 });
+    }
+    if (!skinType) {
+      return new NextResponse("Skin Type is required", { status: 400 });
+    }
+    if (!skinConcern) {
+      return new NextResponse("Skin Concern is required", { status: 400 });
+    }
+
     if (!categoryId) {
       return new NextResponse("Category Id is required", { status: 400 });
     }
@@ -39,6 +58,9 @@ export async function PATCH(req, { params }) {
       data: {
         title,
         description,
+        price,
+        skinType,
+        skinConcern,
         categoryId,
         images: {
           deleteMany: {},
