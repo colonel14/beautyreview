@@ -35,6 +35,8 @@ function RecommendedProducts() {
     fetchRecommendation();
   }, []);
 
+  console.log(recommendedProducts);
+
   return (
     <div className="home__section">
       <div className="section__header">

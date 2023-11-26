@@ -5,7 +5,15 @@ import { useEffect, useState } from "react";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 
-export const AlertModal = ({ isOpen, onClose, onConfirm, loading }) => {
+export const AlertModal = ({
+  isOpen,
+  onClose,
+  onConfirm,
+  loading,
+  title,
+  description,
+  confirmLabel,
+}) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -18,8 +26,8 @@ export const AlertModal = ({ isOpen, onClose, onConfirm, loading }) => {
 
   return (
     <Modal
-      title="Are you sure?"
-      description="This action cannot be undone."
+      title={title || "Are you sure?"}
+      description={description || "This action cannot be undone."}
       isOpen={isOpen}
       onClose={onClose}
     >
@@ -28,7 +36,7 @@ export const AlertModal = ({ isOpen, onClose, onConfirm, loading }) => {
           Cancel
         </Button>
         <Button disabled={loading} variant="destructive" onClick={onConfirm}>
-          Continue
+          {confirmLabel || "Continue"}
         </Button>
       </div>
     </Modal>

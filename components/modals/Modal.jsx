@@ -79,11 +79,13 @@ export default function Modal({
                       disabled={disabled}
                     />
                   )}
-                  <Button
-                    label={actionLabel}
-                    onClick={handleSubmit}
-                    disabled={disabled}
-                  />
+                  {actionLabel && (
+                    <Button
+                      label={actionLabel}
+                      onClick={handleSubmit}
+                      disabled={disabled}
+                    />
+                  )}
                 </div>
                 {footer}
               </div>

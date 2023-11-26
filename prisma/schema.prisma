@@ -54,8 +54,8 @@ model Recommendation {
   id               String    @id @default(cuid())
   userId           String    @unique
   selectedType     String?   
-  selectedCategory String?   
-  skinType         String?  
+  selectedCategory String  
+  skinType         String?
   budget           String?   
   wantsTopRated    String?  
   createdAt        DateTime  @default(now())

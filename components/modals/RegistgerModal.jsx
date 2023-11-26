@@ -11,42 +11,69 @@ import Modal from "./Modal";
 
 import Input from "../inputs/Input";
 import { toast } from "react-hot-toast";
-import Button from "../Button";
 import useLoginModal from "@/hooks/useLoginModal";
+import { useRouter } from "next/navigation";
+import { AlertModal } from "./AlertModal";
+import useRecommendationModal from "@/hooks/useRecommendationModal";
 
 export default function RegistgerModal() {
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
-  const [isLoading, setIsLoading] = useState(false);
+  const recommendationModal = useRecommendationModal();
 
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ defaultValues: { name: "", email: "", password: "" } });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     setIsLoading(true);
 
-    axios
-      .post("/api/register", data)
-      .then(() => {
-        toast.success("Success Regesteration!");
-        registerModal.onClose();
-        loginModal.onOpen();
-      })
-      .catch((error) => {
-        toast.error("Something Went Wrong!");
-      })
-      .finally(() => {
+    try {
+      const response = await axios.post("/api/register", data);
+
+      signIn("credentials", {
+        ...data,
+        role: "USER",
+        redirect: false,
+      }).then((callback) => {
         setIsLoading(false);
+        setOpen(true);
+        if (callback?.ok) {
+          toast.success("Success Regesteration!");
+          router.refresh();
+          registerModal.onClose();
+        }
+
+        if (callback?.error) {
+          toast.error(callback.error);
+        }
       });
+
+      setIsLoading(false);
+    } catch (error) {
+      toast.error("Something Went Wrong!");
+      setIsLoading(false);
+    }
+  };
+
+  // On Confirm to take the recommendation form
+  const onConfirm = () => {
+    recommendationModal.onOpen();
+    setOpen(false);
+    router.push("/");
   };
 
   const toggle = useCallback(() => {
     registerModal.onClose();
     loginModal.onOpen();
   }, [registerModal, loginModal]);
+
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <div className="text-start">
@@ -107,15 +134,27 @@ export default function RegistgerModal() {
     </div>
   );
   return (
-    <Modal
-      disabled={isLoading}
-      isOpen={registerModal.isOpen}
-      onClose={registerModal.onClose}
-      title="Register"
-      actionLabel="Continue"
-      onSubmit={handleSubmit(onSubmit)}
-      body={bodyContent}
-      footer={footerContent}
-    />
+    <>
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={onConfirm}
+        loading={isLoading}
+        title="Would you like to have a personal recommendation?"
+        description="Completing this form will assist us in suggesting products tailored to your interests."
+        confirmLabel="Yes"
+      />
+
+      <Modal
+        disabled={isLoading}
+        isOpen={registerModal.isOpen}
+        onClose={registerModal.onClose}
+        title="Register"
+        actionLabel="Continue"
+        onSubmit={handleSubmit(onSubmit)}
+        body={bodyContent}
+        footer={footerContent}
+      />
+    </>
   );
 }

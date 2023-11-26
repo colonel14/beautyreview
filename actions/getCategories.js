@@ -1,8 +1,14 @@
 import prisma from "@/lib/prismadb";
 
-export default async function getCategories() {
+export default async function getCategories(params = {}) {
   try {
+    let query = { type: "Makeup" };
+    const { type } = params;
+    if (type) {
+      query.type = type;
+    }
     const categories = await prisma.category.findMany({
+      where: query,
       orderBy: {
         createdAt: "desc",
       },

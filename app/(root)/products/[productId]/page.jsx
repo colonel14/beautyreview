@@ -27,32 +27,26 @@ async function ProductDetailsPage({ params }) {
       },
       Review: {
         select: {
+          id: true,
           overallSatisfaction: true,
           reasonablyPriced: true,
           qualityRating: true,
           effectivenessRating: true,
           packagingRating: true,
           skinMatchRating: true,
+          User: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              image: true,
+            },
+          },
+          comment: true,
         },
       },
       category: true,
       images: true,
-    },
-  });
-
-  const allReview = await prismadb.review.findMany({
-    include: {
-      User: {
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          image: true,
-        },
-      },
-    },
-    where: {
-      productId: params.productId,
     },
   });
 
@@ -141,7 +135,7 @@ async function ProductDetailsPage({ params }) {
           </div>
           <div className="">
             <div>
-              {allReview.map((review, index) => (
+              {reviews.map((review, index) => (
                 <div key={review.id} className="mb-5">
                   <h1 className="mb-2 font-medium">Comment: {index + 1}</h1>
                   <ReviewItem {...review} currentUser={currentUser} />

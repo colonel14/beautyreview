@@ -19,14 +19,16 @@ export default async function getUserRecommendations() {
     });
 
     let recommendedProducts = [];
-
+    const categories = userRecommendation?.selectedCategory.split(", ");
     if (userRecommendation) {
       // If the user has filled the recommendation form, fetch products based on their preferences
       recommendedProducts = await prismadb.product.findMany({
         where: {
-          categoryId: userRecommendation.selectedCategory,
-          skinType: userRecommendation.skinType,
           price: { lte: parseFloat(userRecommendation.budget) },
+          OR: [
+            { categoryId: { in: categories } },
+            { skinType: userRecommendation.skinType },
+          ],
         },
         include: {
           images: true,

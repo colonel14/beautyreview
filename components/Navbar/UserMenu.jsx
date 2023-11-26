@@ -14,12 +14,14 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarImage } from "../ui/avatar";
+import useRecommendationModal from "@/hooks/useRecommendationModal";
 
 export default function UserMenu({ currentUser }) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const recommendationModal = useRecommendationModal();
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -71,7 +73,6 @@ export default function UserMenu({ currentUser }) {
                   </DropdownMenuItem>
                 </>
               )}
-
               <DropdownMenuItem
                 onClick={() => signOut()}
                 className="px-2 py-3 hover:bg-neutral-100 transition font-semibold text-pink-default cursor-pointer"

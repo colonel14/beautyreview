@@ -4,18 +4,13 @@ import { ModalProvider } from "@/providers/modal-provider";
 import getCurrentUser from "@/actions/getCurrentUser";
 import Navbar from "@/components/Navbar/Navbar";
 import ToasterProvider from "@/providers/ToasterProvider";
-import { Metadata } from "next";
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Beauty Review",
   description: "Beauty Review",
 };
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }) {
   const currentUser = await getCurrentUser();
 
   return (

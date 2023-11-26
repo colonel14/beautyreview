@@ -122,6 +122,9 @@ export const UserForm: React.FC<UserFormProps> = ({ initialData }) => {
         onClose={() => setOpen(false)}
         onConfirm={onDelete}
         loading={loading}
+        title="Are you sure?"
+        description="This action cannot be undone."
+        confirmLabel="Continue"
       />
       <div className="flex items-center justify-between">
         <Heading title={title} description={subTitle} />
