@@ -159,7 +159,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             name="images"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Images</FormLabel>
+                <FormLabel>Images <span className=" text-red-600">*</span></FormLabel>
                 <FormControl>
                   <ImageUpload
                     value={field.value.map((image) => image.url)}
@@ -183,7 +183,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Title</FormLabel>
+                <FormLabel>Title <span className=" text-red-600">*</span></FormLabel>
                 <FormControl>
                   <Input
                     disabled={loading}
@@ -200,7 +200,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             name="price"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Price</FormLabel>
+                <FormLabel>Price <span className=" text-red-600">*</span></FormLabel>
                 <FormControl>
                   <Input
                     type="number"
@@ -219,7 +219,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             name="categoryId"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Category</FormLabel>
+                <FormLabel>Category <span className=" text-red-600">*</span></FormLabel>
                 <Select
                   disabled={loading}
                   onValueChange={field.onChange}
@@ -251,7 +251,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             name="skinType"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>What is your Skin Type?</FormLabel>
+                <FormLabel>What is your Skin Type? <span className=" text-red-600">*</span></FormLabel>
                 <Select
                   disabled={loading}
                   onValueChange={field.onChange}
@@ -282,7 +282,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             name="skinConcern"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Do you have any speific skin concerns?</FormLabel>
+                <FormLabel>Do you have any speific skin concerns? <span className=" text-red-600">*</span></FormLabel>
                 <Select
                   disabled={loading}
                   onValueChange={field.onChange}
@@ -313,7 +313,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Product Description</FormLabel>
+                <FormLabel>Product Description <span className=" text-red-600">*</span></FormLabel>
                 <FormControl>
                   <Textarea
                     disabled={loading}

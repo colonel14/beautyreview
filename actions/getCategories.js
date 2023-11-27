@@ -2,7 +2,7 @@ import prisma from "@/lib/prismadb";
 
 export default async function getCategories(params = {}) {
   try {
-    let query = { type: "Makeup" };
+    let query = { };
     const { type } = params;
     if (type) {
       query.type = type;
