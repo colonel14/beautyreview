@@ -70,9 +70,7 @@ export default async function getUserRecommendations() {
             images: true,
             category: true,
           },
-          orderBy: {
-            createdAt: "desc",
-          },
+
         });
       }
     }

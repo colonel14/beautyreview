@@ -12,9 +12,7 @@ export default async function getProducts() {
         category: true,
         images: true,
       },
-      orderBy: {
-        createdAt: "desc",
-      },
+
     });
     return products;
   } catch (error) {

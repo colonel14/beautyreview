@@ -9,9 +9,7 @@ export default async function getCategories(params = {}) {
     }
     const categories = await prisma.category.findMany({
       where: query,
-      orderBy: {
-        createdAt: "desc",
-      },
+
     });
     return categories;
   } catch (error) {

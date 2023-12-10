@@ -18,17 +18,13 @@ export default async function ProductsPage() {
       category: true,
       images: true,
     },
-    orderBy: {
-      createdAt: "desc",
-    },
+
   });
 
   const formattedProducts = products.map((item) => ({
     id: item.id,
     title: item.title,
     category: item.category.name,
-    createdAt: format(item.createdAt, "MMMM do, yyyy"),
-    updatedAt: format(item.updatedAt, "MMMM do, yyyy"),
   }));
 
   return (

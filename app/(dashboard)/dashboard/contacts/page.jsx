@@ -5,11 +5,7 @@ import ContactsClient from "./_components/_ContactsClient";
 export const dynamic = "force-dynamic";
 
 export default async function ContactsPage() {
-  const contacts = await prismadb.contact.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+  const contacts = await prismadb.contact.findMany();
 
   const formattedContacts = contacts.map((item) => ({
     id: item.id,
@@ -17,7 +13,6 @@ export default async function ContactsPage() {
     email: item.email,
     message: item.message,
     createdAt: format(item.createdAt, "MMMM do, yyyy"),
-    updatedAt: format(item.updatedAt, "MMMM do, yyyy"),
   }));
 
   return (

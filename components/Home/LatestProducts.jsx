@@ -10,9 +10,7 @@ async function LatestProducts() {
       images: true,
       Review: true,
     },
-    orderBy: {
-      createdAt: "desc",
-    },
+
   });
 
   const formattedProducts = products.map((item) => ({
@@ -21,8 +19,6 @@ async function LatestProducts() {
     description: item.description,
     review: item.Review,
     images: item.images,
-    createdAt: format(item.createdAt, "MMMM do, yyyy"),
-    updatedAt: format(item.updatedAt, "MMMM do, yyyy"),
   }));
 
   return (

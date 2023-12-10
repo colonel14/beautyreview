@@ -21,9 +21,6 @@ function ProductCard({ product }) {
               {product.description}
             </p>
           </div>
-          {/* <div className="flex items-center gap-1 text-[#FFCE00] text-lg">
-            {averageRating} <Star className="h-5 w-5" fill="#FFCE00" />
-          </div> */}
         </div>
       </div>
     </Link>

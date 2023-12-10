@@ -6,11 +6,7 @@ import UsersClient from "./_components/_UsersClient";
 export const dynamic = "force-dynamic";
 
 async function UsersPage() {
-  const users = await prismadb.user.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+  const users = await prismadb.user.findMany();
 
   const formattedUsers = users.map((item) => ({
     id: item.id,
@@ -18,8 +14,6 @@ async function UsersPage() {
     email: item.email,
     image: item.image,
     role: item.role,
-    createdAt: format(item.createdAt, "MMMM do, yyyy"),
-    updatedAt: format(item.updatedAt, "MMMM do, yyyy"),
   }));
 
   return (

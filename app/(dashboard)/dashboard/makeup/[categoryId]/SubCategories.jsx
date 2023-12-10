@@ -34,8 +34,6 @@ const SubCategories = ({ subcategories, parentId }) => {
   const formattedCategories = subcategories.map((item) => ({
     id: item.id,
     name: item.name,
-    createdAt: format(item.createdAt, "MMMM do, yyyy"),
-    updatedAt: format(item.updatedAt, "MMMM do, yyyy"),
   }));
 
   const [loading, setLoading] = useState(false);

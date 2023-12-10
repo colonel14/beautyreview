@@ -10,16 +10,12 @@ export default async function ProductsPage() {
       type: "Skincare",
       parentId: null,
     },
-    orderBy: {
-      createdAt: "asc",
-    },
+   
   });
 
   const formattedCategories = categories.map((item) => ({
     id: item.id,
     name: item.name,
-    createdAt: format(item.createdAt, "MMMM do, yyyy"),
-    updatedAt: format(item.updatedAt, "MMMM do, yyyy"),
   }));
 
   return (

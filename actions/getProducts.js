@@ -7,9 +7,7 @@ export default async function getProducts() {
         images: true,
         Review: true,
       },
-      orderBy: {
-        createdAt: "desc",
-      },
+
     });
     return products;
   } catch (error) {
