@@ -1,0 +1,148 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+
+
+model User {
+  id                    String    @id @default(cuid())
+  name                  String?
+  email                 String?   @unique
+  image                 String?
+  hashedPassword        String?
+  role                  Role     @default(USER)
+  Review                Review[]
+  Product               Product[]
+  likes                 Like[]    // Relation to track user likes and dislikes
+  recommendation        Recommendation?
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+
+
+model Recommendation {
+  id               String    @id @default(cuid())
+  userId           String    @unique
+  selectedType     String?   
+  selectedCategory String  
+  skinType         String?
+  budget           String?   
+  wantsTopRated    String? 
+  user                User      @relation(fields: [userId], references: [id])
+}
+
+
+model Product {
+  id            String    @id @default(cuid())
+  userId        String
+  title         String @db.Text
+  description   String @db.Text
+  categoryId    String    // Foreign Key to Category
+  category      Category  @relation( fields: [categoryId], references: [id])
+  images        Image[]   // Relation to Image model
+  Review        Review[]  // Relation to Preview model
+  skinType      String  
+  skinConcern   String  
+  price         Float   
+
+  User User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([categoryId])
+  @@fulltext([title, description])
+}
+
+model Category {
+  id              String      @id @default(cuid())
+  name            String
+  type            String?
+
+  parentId        String?
+  subcategories   Category[]  @relation("Subcategories")
+  parent          Category?   @relation("Subcategories", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  products        Product[]   @relation()
+}
+
+model Review {
+  id                      Int     @id @default(autoincrement())
+  overallSatisfaction     Int
+  reasonablyPriced        Int 
+  qualityRating           Int
+  effectivenessRating     Int
+  packagingRating         Int 
+  skinMatchRating         Int
+  recommendToOthers       String
+
+  comment                 String
+  productId               String
+  Product                 Product @relation(fields: [productId],references: [id],onDelete: Cascade)
+  userId                  String
+  User                    User @relation(fields: [userId],references: [id],onDelete: Cascade)
+
+  likes                   Like[]    // Relation to track review likes and dislikes
+
+
+  @@index([productId])
+  @@index([userId])
+}
+
+
+model Like {
+  id          String   @id @default(cuid())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  review      Review?  @relation(fields: [reviewId], references: [id])
+  reviewId    Int?
+  type        String   // 'like' or 'dislike' to differentiate the interaction
+
+  @@index([userId])
+  @@index([reviewId])
+}
+
+model Image {
+  id          String   @id @default(cuid())
+  productId   String   // Foreign Key to Product
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url         String   // URL of the image
+
+  @@index([productId])
+}
+
+
+model Contact {
+  id          String      @id @default(cuid())
+  name        String
+  email       String
+  message     String      @db.Text
+  createdAt             DateTime  @default(now())
+}
+
+model Adcontact {
+  id          String      @id @default(cuid())
+  name        String
+  email       String
+  message     String      @db.Text
+  createdAt             DateTime  @default(now())
+}
+
+
+model Ad {
+  id          String      @id @default(cuid())
+  adOwner     String
+  banner      String
+  adUrl       String
+}
