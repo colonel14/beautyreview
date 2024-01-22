@@ -32,7 +32,7 @@ export default async function Home() {
           </Link>
         </div>
         <CardsSection currentUser={currentUser} />
-        {/* <AdsSection /> */}
+        <AdsSection />
 
         {/* <Image
           src="/images/hero-img.jpg"
