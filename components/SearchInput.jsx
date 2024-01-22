@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Button } from "./ui/button";
 
 function SearchInput() {
   const { replace } = useRouter();
@@ -29,13 +30,16 @@ function SearchInput() {
 
   return (
     <div className="flex max-w-2xl mx-auto my-6 mb-12">
-      <form onSubmit={submitSearch} className="w-full">
+      <form onSubmit={submitSearch} className="w-full flex items-center gap-4">
         <Input
           className="py-5 border-pink-500 text-pink-dark border-[2px] focus-visible:ring-0 focus-visible:ring-none"
           placeholder="Search..."
           onChange={onChange}
           value={value}
         />
+        <Button className="bg-pink-dark">
+          Search
+        </Button>
       </form>
     </div>
   );
