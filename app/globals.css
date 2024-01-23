@@ -302,12 +302,27 @@ body {
 .product__slide-title {
   font-family: "Playfair Display", serif;
   color: var(--pink-dark);
-  font-size: 1.5rem;
+  font-size: clamp(16px, 2vw, 1.5rem);
+  font-weight: 500;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 .product__slide-desc {
-  font-size: 1rem;
+  font-size: clamp(14px, 2vw, 1rem);
   color: var(--pink-dark);
   margin-top: 10px;
+}
+
+.home-card {
+  display: block;
+  aspect-ratio: 16 / 9;
+}
+.card-title {
+  color: #ee009d;
+  font-weight: 700;
+  font-size: clamp(18px, 2vw, 1.875rem);
 }
 
 /* Products Page */
@@ -453,6 +468,33 @@ body {
   .page__hero-subtitle {
     max-width: 90%;
     font-size: 1rem;
+  }
+
+  .home__section {
+    padding: 4rem 0 0;
+  }
+  .section__header {
+    margin-bottom: 3rem;
+  }
+
+  .page__breadcrubms {
+    margin-bottom: 2rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .page__hero {
+    padding: 3rem 0 0 0;
+  }
+  .page__hero-inner {
+    padding: 2rem 0 0 0;
+  }
+  .product__slide-info {
+    padding: 1rem 0;
+  }
+  .home-card {
+    aspect-ratio: 16 / 6;
+    margin-bottom: 10px;
   }
 }
 

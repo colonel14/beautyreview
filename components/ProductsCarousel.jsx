@@ -20,11 +20,9 @@ function ProductsCarousel({ products, type }) {
           991: {
             slidesPerView: 3,
           },
-          767: {
-            slidesPerView: 2,
-          },
+
           479: {
-            slidesPerView: 1,
+            slidesPerView: 2,
           },
         }}
         spaceBetween={20}

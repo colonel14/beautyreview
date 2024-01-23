@@ -34,7 +34,6 @@ function ClientLocal({ product, currentUser }) {
           viewdCategories: storedCategories,
         });
 
-        console.log(recommendation);
       }
     }
 

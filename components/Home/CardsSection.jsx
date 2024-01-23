@@ -8,9 +8,9 @@ function CardsSection({ currentUser }) {
   const recommendationModal = useRecommendationModal();
   const loginModal = useLoginModal();
   return (
-    <div className="flex flex-wrap gap-5">
+    <div className="block md:flex gap-5">
       <span
-        className="relative block min-w-[400px] h-[350px] flex-1 p-5 text-center border-2 border-pink-dark  cursor-pointer"
+        className="relative home-card flex-1 p-5 text-center border-2 border-pink-dark  cursor-pointer"
         onClick={() => {
           if (!currentUser) {
             loginModal.onOpen();
@@ -25,13 +25,13 @@ function CardsSection({ currentUser }) {
           className="object-cover"
           alt="hero img"
         />
-        <h3 className="relative z-10 text-pink-dark text-3xl font-bold">
+        <h3 className="relative z-10 card-title">
           Get <br /> a Recommendations
         </h3>
       </span>
       <Link
         href="/products"
-        className="relative min-w-[300px] h-[350px] flex-1 p-5 text-center border-2 border-pink-dark"
+        className="relative home-card flex-1 p-5 text-center border-2 border-pink-dark"
       >
         <Image
           src="/images/hero-img-2.jpg"
@@ -39,13 +39,13 @@ function CardsSection({ currentUser }) {
           className="object-cover"
           alt="hero img"
         />
-        <h3 className="relative z-10 text-pink-dark text-3xl font-bold font-Playfair">
+        <h3 className="relative z-10 card-title">
           View <br /> Products
         </h3>
       </Link>
       <Link
         href="/advertise"
-        className="relative min-w-[300px] h-[350px] flex-1 p-5 text-center border-2 border-pink-dark"
+        className="relative home-card flex-1 p-5 text-center border-2 border-pink-dark"
       >
         <Image
           src="/images/hero-img-3.jpg"
@@ -53,7 +53,7 @@ function CardsSection({ currentUser }) {
           className="object-cover"
           alt="hero img"
         />
-        <h3 className="absolute top-[32%] z-10 text-pink-dark text-3xl font-bold">
+        <h3 className="absolute top-[10%] md:top-[32%] z-10 card-title">
           Advertise <br /> With <br /> Us!
         </h3>
       </Link>
