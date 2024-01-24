@@ -1,6 +1,8 @@
 import prismadb from "@/lib/prismadb";
 
 import { ProductForm } from "@/components/ProductForm";
+import { redirect } from "next/navigation";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 const ProductPage = async ({ params }) => {
   const product = await prismadb.product.findUnique({

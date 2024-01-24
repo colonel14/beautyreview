@@ -53,7 +53,7 @@ const ImageUpload = ({
           );
         })}
       </div>
-      <CldUploadWidget onUpload={onUpload} uploadPreset="tcbqumce">
+      <CldUploadWidget onUpload={onUpload} uploadPreset="owlchhad">
         {({ open }) => {
           const onClick = () => {
             open();

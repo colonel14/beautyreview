@@ -8,7 +8,7 @@ function CardsSection({ currentUser }) {
   const recommendationModal = useRecommendationModal();
   const loginModal = useLoginModal();
   return (
-    <div className="block md:flex gap-5">
+    <div className="flex gap-1 md:gap-5">
       <span
         className="relative home-card flex-1 p-5 text-center border-2 border-pink-dark  cursor-pointer"
         onClick={() => {

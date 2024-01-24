@@ -1,12 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "./ui/button";
+import Link from "next/link";
+import useLoginModal from "@/hooks/useLoginModal";
 
-function SearchInput() {
+function SearchInput({ currentUser }) {
+  const loginModal = useLoginModal();
+
   const { replace } = useRouter();
   const searchParams = useSearchParams();
 
@@ -28,19 +32,35 @@ function SearchInput() {
     replace(`/search?${params.toString()}`);
   };
 
+  const handleClick = () => {
+    if (!currentUser) {
+      loginModal.onOpen();
+      return;
+    }
+
+    replace("/product/new");
+  };
+
   return (
-    <div className="flex max-w-2xl mx-auto my-6 mb-12">
-      <form onSubmit={submitSearch} className="w-full flex items-center gap-4">
+    <div className="flex justify-between items-center flex-wrap gap-4 my-6 mb-12">
+      <form
+        onSubmit={submitSearch}
+        className="w-[800px] max-w-full flex items-center gap-4"
+      >
         <Input
           className="py-5 border-pink-500 text-pink-dark border-[2px] focus-visible:ring-0 focus-visible:ring-none"
           placeholder="Search..."
           onChange={onChange}
           value={value}
         />
-        <Button className="bg-pink-dark">
-          Search
-        </Button>
+        <Button className="bg-pink-dark">Search</Button>
       </form>
+      <Button
+        onClick={handleClick}
+        className="flex items-center gap-2 bg-white border border-pink-dark text-pink-dark font-medium hover:bg-pink-dark hover:text-white"
+      >
+        Add Product <Plus className="w-5 h-5" />
+      </Button>
     </div>
   );
 }

@@ -14,9 +14,9 @@ async function AdvertisePage() {
           <div className="page__hero-heading">
             <h2 className="page__hero-title">Advertise With Us</h2>
             <p className="page__hero-subtitle">
-              We like to hear from you, your review about the site. please feel
-              free to fell the form below and tell us how can we imporove our
-              website further more
+              Welcome to Beauty Review ! Interested in promoting your brand with
+              us? Kindly provide the following details, and we&apos;ll get
+              back to you shortly:
             </p>
           </div>
         </div>

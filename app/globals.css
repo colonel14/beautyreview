@@ -79,16 +79,31 @@
   }
 }
 
+:root,
+html,
+body {
+  scroll-behavior: smooth;
+}
+
 body {
   background: #fffbfb;
   font-family: "IBM Plex Sans", sans-serif;
 }
+
 .container {
   padding-left: 0;
   padding-right: 0;
 }
 .app__wrapper {
   padding: 0 2rem;
+}
+
+.outline-button {
+  border: 1px solid var(--pink-dark);
+  color: var(--pink-dark);
+  padding: 0.5em 1rem;
+  font-weight: 500;
+  border-radius: 5px;
 }
 
 .app__navbar {
@@ -132,7 +147,7 @@ body {
   max-width: 50vw;
   margin: 0 auto;
   text-align: center;
-  padding: 4rem 0 8rem;
+  padding: 4rem 0 3rem;
 }
 
 .app__hero-title {
@@ -489,19 +504,32 @@ body {
   .page__hero-inner {
     padding: 2rem 0 0 0;
   }
+  .app__hero-subtitle {
+    font-size: 1rem;
+  }
   .product__slide-info {
     padding: 1rem 0;
   }
   .home-card {
-    aspect-ratio: 16 / 6;
-    margin-bottom: 10px;
+    padding: 1.5rem 10px;
+  }
+  .card-title {
+    font-size: clamp(10px, 2vw, 20px);
   }
 }
 
 @media screen and (max-width: 550px) {
+  .app__navbar {
+    padding: 20px 10px;
+  }
   .app__navbar-logo {
     width: 130px;
   }
+
+  .hero__logo {
+    max-width: 75%;
+  }
+
   .app__button-arrow {
     width: 45px;
   }

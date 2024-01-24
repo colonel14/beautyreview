@@ -10,6 +10,8 @@ export default async function getCategories(params = {}) {
     const categories = await prisma.category.findMany({
       where: query,
     });
+
+
     return categories;
   } catch (error) {
     throw new Error(error);

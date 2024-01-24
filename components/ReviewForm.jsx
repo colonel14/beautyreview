@@ -21,8 +21,6 @@ import toast from "react-hot-toast";
 import useLoginModal from "@/hooks/useLoginModal";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 
-
-
 const formSchema = z.object({
   overallSatisfaction: z.number(),
   reasonablyPriced: z.number(),
@@ -33,7 +31,6 @@ const formSchema = z.object({
   recommendToOthers: z.string(),
   comment: z.string().min(1),
 });
-
 
 const ReviewForm = ({ productId, userId }) => {
   const router = useRouter();
@@ -90,7 +87,7 @@ const ReviewForm = ({ productId, userId }) => {
   const onInvalid = (errors) => console.error(errors);
 
   return (
-    <div>
+    <div id="reviewSection">
       <h1 className="text-xl font-medium mb-4">Give your opinions</h1>
       <Form {...form}>
         <form
@@ -229,13 +226,13 @@ const ReviewForm = ({ productId, userId }) => {
                       <FormControl>
                         <RadioGroupItem value="false" />
                       </FormControl>
-                      <FormLabel className="font-normal">False</FormLabel>
+                      <FormLabel className="font-normal">No</FormLabel>
                     </FormItem>
                     <FormItem className="flex items-center space-x-3 space-y-0">
                       <FormControl>
                         <RadioGroupItem value="true" />
                       </FormControl>
-                      <FormLabel className="font-normal">True</FormLabel>
+                      <FormLabel className="font-normal">Yes</FormLabel>
                     </FormItem>
                   </RadioGroup>
                 </FormControl>

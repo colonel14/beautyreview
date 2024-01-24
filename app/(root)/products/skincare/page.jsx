@@ -2,8 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import prismadb from "@/lib/prismadb";
 import SearchInput from "@/components/SearchInput";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 async function SkinCarePage() {
+  const currentUser = await getCurrentUser();
   const products = await prismadb.product.findMany({
     where: {
       category: {
@@ -27,14 +29,10 @@ async function SkinCarePage() {
         <div className="page__hero-inner">
           <div className="page__hero-heading">
             <h2 className="page__hero-title">Skincare Products</h2>
-            <p className="page__hero-subtitle">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-              sapiente repellendus minima facere provident accusamus officia,
-            </p>
           </div>
         </div>
       </div>
-      <SearchInput />
+      <SearchInput currentUser={currentUser} />
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-5">
         {/* Loop over Products */}
         {products &&

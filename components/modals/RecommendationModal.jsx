@@ -304,7 +304,7 @@ export default function RecommendationModal({ categories }) {
   if (step == steps.recommendation) {
     bodyContent = (
       <div>
-        <div className="grid grid-cols-12 gap-5">
+        <div className="grid grid-cols-12 gap-5 h-[60vh] overflow-y-auto">
           {recommendedProducts.length ? (
             <>
               {recommendedProducts.map((product) => (
@@ -369,7 +369,7 @@ export default function RecommendationModal({ categories }) {
           Sorry we didn&apos;t find any products with the same category As you
           sumbitted So recommended you some of the top Rated products
         </h3>
-        <div className="grid grid-cols-12 gap-5">
+        <div className="grid grid-cols-12 gap-5 h-[60vh] overflow-y-auto">
           {recommendedProducts.length ? (
             <>
               {recommendedProducts.map((product) => (
@@ -401,10 +401,10 @@ export default function RecommendationModal({ categories }) {
               ))}
             </>
           ) : (
-            <>
+            <div className="w-full">
               Sorry we didn&apos;t find any products with the same category As
               you sumbitted
-            </>
+            </div>
           )}
         </div>
         <div className="flex gap-3 mt-10">

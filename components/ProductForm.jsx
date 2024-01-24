@@ -229,7 +229,7 @@ export const ProductForm = ({ initialData, categories }) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  What is your Skin Type?{" "}
+                  Which skin type is this product suitable for?{" "}
                   <span className=" text-red-600">*</span>
                 </FormLabel>
                 <Select
@@ -247,6 +247,7 @@ export const ProductForm = ({ initialData, categories }) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
+                    <SelectItem value="all">All</SelectItem>
                     <SelectItem value="dry">Dry</SelectItem>
                     <SelectItem value="Oily">Oily</SelectItem>
                     <SelectItem value="Combination">Combination</SelectItem>
@@ -263,7 +264,7 @@ export const ProductForm = ({ initialData, categories }) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  Do you have any speific skin concerns?{" "}
+                  Does it treat any types of skin problems?{" "}
                   <span className=" text-red-600">*</span>
                 </FormLabel>
                 <Select

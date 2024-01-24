@@ -8,6 +8,10 @@ function DashboardNav() {
 
   const routes = [
     {
+      href: `/`,
+      label: "Home",
+    },
+    {
       href: `/dashboard`,
       label: "Overview",
       active: pathname === `/dashboard`,

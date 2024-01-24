@@ -20,8 +20,7 @@ function ProductsCarousel({ products, type }) {
           991: {
             slidesPerView: 3,
           },
-
-          479: {
+          0: {
             slidesPerView: 2,
           },
         }}

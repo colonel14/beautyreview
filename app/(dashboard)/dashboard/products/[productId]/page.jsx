@@ -15,6 +15,7 @@ const ProductPage = async ({ params }) => {
 
   const categories = await getCategories();
 
+
   const formattedCategories = categories.map((item) => ({
     id: item.id,
     name: item.name,

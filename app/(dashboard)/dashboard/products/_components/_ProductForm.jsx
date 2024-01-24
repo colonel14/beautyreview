@@ -254,6 +254,7 @@ export const ProductForm = ({ initialData, categories }) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
+                    <SelectItem value="all">All</SelectItem>
                     <SelectItem value="dry">Dry</SelectItem>
                     <SelectItem value="Oily">Oily</SelectItem>
                     <SelectItem value="Combination">Combination</SelectItem>

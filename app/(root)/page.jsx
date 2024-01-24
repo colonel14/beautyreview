@@ -18,30 +18,16 @@ export default async function Home() {
             src="/images/hero-logo.png"
             width={602}
             height={345}
-            className="max-w-full mx-auto"
+            className="max-w-full mx-auto hero__logo"
             alt="hero logo"
           />
           <span className="app__hero-subtitle">
             Welcome to a beauty review where women share their love for makeup
             and skincare because feeling fabulous is always in fashion!
           </span>
-
-          <Link href="/products" className="app__button">
-            View Products
-            <span className="app__button-arrow"></span>
-          </Link>
         </div>
         <CardsSection currentUser={currentUser} />
         <AdsSection />
-
-        {/* <Image
-          src="/images/hero-img.jpg"
-          width={500}
-          height={300}
-          className="app__hero-img"
-          alt="hero image"
-          unoptimized
-        /> */}
       </div>
       {/* End of Hero Section */}
       <RecommendedProducts currentUser={currentUser} />
