@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { User } from "@prisma/client";
 import * as z from "zod";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,7 +9,6 @@ import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -32,7 +30,6 @@ function AccountForm({ initialData, currentUser }) {
   const params = useParams();
   const router = useRouter();
 
-  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const defaultValues = initialData
@@ -57,7 +54,6 @@ function AccountForm({ initialData, currentUser }) {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      let response;
       await axios.patch(`/api/user`, data);
 
       router.refresh();
@@ -65,21 +61,6 @@ function AccountForm({ initialData, currentUser }) {
       toast.success("Profile Updated Successfully");
     } catch (error) {
       toast.error(error.response.data);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const deleteRecommendation = async () => {
-    try {
-      setLoading(true);
-      await axios.delete(
-        `/api/recommendation/${currentUser?.recommendation.id}`
-      );
-      toast.success("recommendation deleted.");
-      router.refresh();
-    } catch (error) {
-      toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -168,16 +149,6 @@ function AccountForm({ initialData, currentUser }) {
             <Button disabled={loading} type="submit">
               Save changes
             </Button>
-            {currentUser.recommendation && (
-              <Button
-                variant="destructive"
-                disabled={loading}
-                type="button"
-                onClick={() => deleteRecommendation()}
-              >
-                Delete Recommendation
-              </Button>
-            )}
           </div>
         </form>
       </Form>

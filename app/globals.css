@@ -235,8 +235,8 @@ body {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 30px;
-  row-gap: 10px;
+  gap: 15px;
+  row-gap: 15px;
   margin-bottom: 5rem;
 }
 .section__header .app__button {
@@ -244,7 +244,7 @@ body {
 }
 .section__heading {
   font-family: "Playfair Display", serif;
-  font-size: clamp(1.5rem, 3vw, 3rem);
+  font-size: clamp(1.3rem, 3vw, 3rem);
   color: var(--pink-dark);
   display: flex;
   align-items: center;
@@ -495,6 +495,16 @@ body {
   .page__breadcrubms {
     margin-bottom: 2rem;
   }
+
+  .app__button-arrow {
+    display: none;
+  }
+
+  .heading__divider {
+    width: 10px;
+  }
+  .section__header .app__button {
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -527,12 +537,19 @@ body {
   }
 
   .hero__logo {
-    max-width: 75%;
+    max-width: 60%;
+  }
+  .app__hero-subtitle {
+    margin-bottom: 0;
   }
 
   .app__button-arrow {
     width: 45px;
   }
+  .app__button {
+    font-size: 14px;
+  }
+
   .category-card h4 {
     font-size: 64px;
   }

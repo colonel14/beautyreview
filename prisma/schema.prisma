@@ -57,7 +57,8 @@ model Product {
   Review        Review[]  // Relation to Preview model
   skinType      String  
   skinConcern   String  
-  price         Float   
+  price         Float
+  createdAt             DateTime  @default(now())
 
   User User @relation(fields: [userId], references: [id], onDelete: Cascade)
 

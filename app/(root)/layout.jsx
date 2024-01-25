@@ -18,7 +18,7 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body>
+      <body className="pb-10">
         <Toaster />
         <RegistgerModal />
         <RecommendationModal categories={categories} />

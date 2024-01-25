@@ -51,6 +51,12 @@ export default function RecommendationModal({ categories }) {
   const pathname = usePathname();
   const { replace, refresh } = useRouter();
 
+  const onClose = () => {
+    setStep(steps.type);
+    setRecommendedProducts([]);
+    recommendationModal.onClose();
+  };
+
   useEffect(() => {
     setFilteredCategories(categories.filter((item) => item.type === type));
   }, [type]);
@@ -221,6 +227,7 @@ export default function RecommendationModal({ categories }) {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
+                        <SelectItem value="all">Normal</SelectItem>
                         <SelectItem value="dry">Dry</SelectItem>
                         <SelectItem value="Oily">Oily</SelectItem>
                         <SelectItem value="Combination">Combination</SelectItem>
@@ -427,7 +434,7 @@ export default function RecommendationModal({ categories }) {
     <Modal
       disabled={isLoading}
       isOpen={recommendationModal.isOpen}
-      onClose={recommendationModal.onClose}
+      onClose={onClose}
       title="Personal Recommendation"
       onSubmit={form.handleSubmit(onSubmit)}
       body={bodyContent}

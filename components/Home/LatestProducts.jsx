@@ -8,6 +8,7 @@ async function LatestProducts() {
     include: {
       images: true,
     },
+    orderBy: [{ createdAt: "desc" }],
   });
 
   return (

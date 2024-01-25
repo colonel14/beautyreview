@@ -17,6 +17,7 @@ export default async function ProductsPage() {
       category: true,
       images: true,
     },
+    orderBy: [{ createdAt: "desc" }],
   });
 
   const formattedProducts = products.map((item) => ({
