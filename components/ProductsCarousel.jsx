@@ -18,7 +18,7 @@ function ProductsCarousel({ products, type }) {
         pagination={true}
         breakpoints={{
           991: {
-            slidesPerView: 3,
+            slidesPerView: 4,
           },
           0: {
             slidesPerView: 2,

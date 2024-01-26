@@ -33,7 +33,6 @@ function ClientLocal({ product, currentUser }) {
         const recommendation = await axios.post("/api/set-recommendation", {
           viewdCategories: storedCategories,
         });
-
       }
     }
 

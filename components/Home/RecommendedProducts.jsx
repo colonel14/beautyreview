@@ -4,6 +4,8 @@ import Link from "next/link";
 import ProductsCarousel from "../ProductsCarousel";
 import axios from "axios";
 
+export const dynamic = "force-dynamic";
+
 function RecommendedProducts({ currentUser }) {
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);

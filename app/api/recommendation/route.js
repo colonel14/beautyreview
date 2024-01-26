@@ -21,6 +21,8 @@ export async function GET() {
 
     let recommendedProducts = [];
 
+    console.log(categories);
+
     if (categories.length) {
       recommendedProducts = await prismadb.product.findMany({
         where: {
@@ -31,14 +33,25 @@ export async function GET() {
         include: {
           images: true,
           category: true,
-          Review: true,
         },
+        orderBy: {
+          categoryId: "desc",
+        },
+        distinct: ["categoryId"],
       });
 
-      const randomSort = () => Math.random() - 0.5;
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
 
-      // Shuffle the Array
-      recommendedProducts.sort(randomSort);
+      // Shuffle recommendedProducts
+      shuffleArray(recommendedProducts);
+
+      // Suggest only 6 per time
+      recommendedProducts = recommendedProducts.slice(0, 6);
     } else {
       // Get the top Rated product
       const topRatedProducts = await prismadb.review.groupBy({

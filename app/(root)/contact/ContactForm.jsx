@@ -26,7 +26,6 @@ function ContactForm() {
       toast.success("We have Received your comment successfully, Thank you.");
       reset();
     } catch (error) {
-      console.log(error);
       toast.error("Something Went wrong");
     } finally {
       setIsLoading(false);
