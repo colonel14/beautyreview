@@ -244,7 +244,7 @@ body {
 }
 .section__heading {
   font-family: "Playfair Display", serif;
-  font-size: clamp(1.3rem, 3vw, 3rem);
+  font-size: clamp(1.2rem, 3vw, 3rem);
   color: var(--pink-dark);
   display: flex;
   align-items: center;
@@ -525,6 +525,9 @@ body {
   }
   .card-title {
     font-size: clamp(10px, 2vw, 20px);
+  }
+  .heading__divider {
+    display: none;
   }
 }
 
