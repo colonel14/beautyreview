@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import LatestProducts from "@/components/Home/LatestProducts";
 import RecommendedProducts from "@/components/Home/RecommendedProducts";

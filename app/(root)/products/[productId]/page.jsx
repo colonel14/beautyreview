@@ -4,10 +4,8 @@ import Gallery from "@/components/Gallery";
 import RatingChart from "@/components/RatingChart";
 import ReviewForm from "@/components/ReviewForm";
 import ReviewItem from "@/components/ReviewItem";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import prismadb from "@/lib/prismadb";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -69,7 +67,7 @@ async function ProductDetailsPage({ params }) {
     skinMatchRating: calculateAverage(reviews.map((r) => r.skinMatchRating)),
   };
 
-  // Helper function to calculate average of an array of numbers
+  // function to calculate average of an array of numbers
   function calculateAverage(arr) {
     const sum = arr.reduce((acc, val) => acc + val, 0);
     return sum / arr.length;
@@ -104,22 +102,7 @@ async function ProductDetailsPage({ params }) {
 
               <h3 className="product__desc">{product.description}</h3>
               <Separator className="my-7" />
-              {/* <div className="product__owner">
-                <Image
-                  className="rounded-full cursor-pointer"
-                  height={30}
-                  width={30}
-                  alt="avatar"
-                  src={product?.User?.image || "/images/placeholder.jpg"}
-                />
-                <div className="product__owner-info">
-                  <h5 className="product__owner-name">{product?.User?.name}</h5>
-                  <h6 className="product__owner-email">
-                    {product?.User?.email}
-                  </h6>
-                </div>
-              </div> */}
-              {/* <Separator className="my-7" /> */}
+
               <RatingChart averageRatings={averageRatings} />
             </div>
           </div>
@@ -130,8 +113,10 @@ async function ProductDetailsPage({ params }) {
             <span className="font-medium text-xl">
               Comment & Review Section
             </span>
-            
-            <Link href="#reviewSection" className="outline-button">Write a Review</Link>
+
+            <Link href="#reviewSection" className="outline-button">
+              Write a Review
+            </Link>
           </div>
           <div className="">
             <div>

@@ -22,10 +22,24 @@ export async function GET() {
     let recommendedProducts = [];
 
     if (categories.length) {
-      recommendedProducts = await prismadb.product.findMany({
+      // Count the occurrences of each category
+      const categoryCounts = {};
+      categories.forEach((category) => {
+        categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+      });
+
+      console.log(categoryCounts);
+
+      // Sort categories by visit count in descending order
+      const sortedCategories = Object.keys(categoryCounts).sort(
+        (a, b) => categoryCounts[b] - categoryCounts[a]
+      );
+
+      // Retrieve 4 products from the most visited category
+      const mostVisitedProducts = await prismadb.product.findMany({
         where: {
           categoryId: {
-            in: categories,
+            in: sortedCategories.slice(0, 1), // Use the most visited category
           },
         },
         include: {
@@ -35,8 +49,38 @@ export async function GET() {
         orderBy: {
           categoryId: "desc",
         },
-        distinct: ["categoryId"],
+        take: 4, // Retrieve 4 products
       });
+
+      recommendedProducts = [...mostVisitedProducts];
+
+      // Retrieve 2 random products from other categories
+      const otherCategories = sortedCategories.slice(1); // Exclude the most visited category
+
+      if (otherCategories.length > 0) {
+        let randomProducts = await prismadb.product.findMany({
+          where: {
+            categoryId: {
+              in: otherCategories,
+            },
+          },
+          include: {
+            images: true,
+            category: true,
+          },
+          orderBy: {
+            categoryId: "desc",
+          },
+          distinct: ["categoryId"],
+        });
+
+        // Shuffle recommendedProducts
+        shuffleArray(randomProducts);
+
+        // Suggest only 2 per time
+        randomProducts = randomProducts.slice(0, 2);
+        recommendedProducts = [...recommendedProducts, ...randomProducts];
+      }
 
       function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -44,12 +88,6 @@ export async function GET() {
           [array[i], array[j]] = [array[j], array[i]];
         }
       }
-
-      // Shuffle recommendedProducts
-      shuffleArray(recommendedProducts);
-
-      // Suggest only 6 per time
-      recommendedProducts = recommendedProducts.slice(0, 6);
     } else {
       // Get the top Rated product
       const topRatedProducts = await prismadb.review.groupBy({
@@ -103,10 +141,24 @@ export async function POST(req) {
     let recommendedProducts = [];
 
     if (categories.length) {
-      recommendedProducts = await prismadb.product.findMany({
+      // Count the occurrences of each category
+      const categoryCounts = {};
+      categories.forEach((category) => {
+        categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+      });
+
+      console.log(categoryCounts);
+
+      // Sort categories by visit count in descending order
+      const sortedCategories = Object.keys(categoryCounts).sort(
+        (a, b) => categoryCounts[b] - categoryCounts[a]
+      );
+
+      // Retrieve 4 products from the most visited category
+      const mostVisitedProducts = await prismadb.product.findMany({
         where: {
           categoryId: {
-            in: categories,
+            in: sortedCategories.slice(0, 1), // Use the most visited category
           },
         },
         include: {
@@ -116,8 +168,38 @@ export async function POST(req) {
         orderBy: {
           categoryId: "desc",
         },
-        distinct: ["categoryId"],
+        take: 4, // Retrieve 4 products
       });
+
+      recommendedProducts = [...mostVisitedProducts];
+
+      // Retrieve 2 random products from other categories
+      const otherCategories = sortedCategories.slice(1); // Exclude the most visited category
+
+      if (otherCategories.length > 0) {
+        let randomProducts = await prismadb.product.findMany({
+          where: {
+            categoryId: {
+              in: otherCategories,
+            },
+          },
+          include: {
+            images: true,
+            category: true,
+          },
+          orderBy: {
+            categoryId: "desc",
+          },
+          distinct: ["categoryId"],
+        });
+
+        // Shuffle recommendedProducts
+        shuffleArray(randomProducts);
+
+        // Suggest only 2 per time
+        randomProducts = randomProducts.slice(0, 2);
+        recommendedProducts = [...recommendedProducts, ...randomProducts];
+      }
 
       function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -125,12 +207,6 @@ export async function POST(req) {
           [array[i], array[j]] = [array[j], array[i]];
         }
       }
-
-      // Shuffle recommendedProducts
-      shuffleArray(recommendedProducts);
-
-      // Suggest only 6 per time
-      recommendedProducts = recommendedProducts.slice(0, 6);
     } else {
       // Get the top Rated product
       const topRatedProducts = await prismadb.review.groupBy({

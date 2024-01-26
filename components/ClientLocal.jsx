@@ -13,9 +13,7 @@ function ClientLocal({ product, currentUser }) {
         storedCategories = JSON.parse(storedCategories);
       }
 
-      if (!storedCategories.includes(product.categoryId)) {
-        storedCategories.push(product.categoryId);
-      }
+      storedCategories.push(product.categoryId);
 
       localStorage.setItem(
         "viewedCategories",
