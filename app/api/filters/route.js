@@ -3,32 +3,23 @@ import getCurrentUser from "@/actions/getCurrentUser";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
-  // If the user is not signedIn get the visited categories
-
   try {
     const body = await req.json();
 
-    const { selectedCategory, skinType, budget, wantsTopRated } = body;
+    const { selectedCategory, skinType, budget } = body;
 
-    let categories = selectedCategory.split(",");
+    let categories = selectedCategory.split(", ");
 
     let recommendedProducts = [];
 
     recommendedProducts = await prismadb.product.findMany({
       where: {
+        categoryId: {
+          in: categories,
+        },
         AND: {
-          categoryId: {
-            in: categories,
-          },
           price: { lte: Number(budget) },
-          OR: [
-            {
-              skinType: skinType,
-            },
-            {
-              skinType: "all",
-            },
-          ],
+          skinType: skinType,
         },
       },
       include: {

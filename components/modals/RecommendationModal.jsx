@@ -48,8 +48,6 @@ export default function RecommendationModal({ categories }) {
   const [recommendedProducts, setRecommendedProducts] = useState([]);
 
   const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace, refresh } = useRouter();
 
   const onClose = () => {
     setStep(steps.type);
@@ -88,6 +86,8 @@ export default function RecommendationModal({ categories }) {
       let type = response.data.type;
 
       setRecommendedProducts(products);
+
+      console.log(products);
 
       if (type == "recommendations") setStep(3);
       if (type == "topRated") setStep(4);
