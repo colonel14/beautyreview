@@ -1,5 +1,4 @@
 import Link from "next/link";
-import ProductsCarousel from "../ProductsCarousel";
 import prismadb from "@/lib/prismadb";
 import Image from "next/image";
 

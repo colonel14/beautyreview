@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { CellAction } from "./_cell-action";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export const columns = [
   {

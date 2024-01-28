@@ -1,12 +1,10 @@
 "use client";
 import { signOut } from "next-auth/react";
-import Image from "next/image";
 import { LayoutDashboard, LogIn, LogOut, Plus, User } from "lucide-react";
 import { useCallback, useState } from "react";
 import useRegisterModal from "@/hooks/useRegisterModal";
 import useLoginModal from "@/hooks/useLoginModal";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -99,7 +97,6 @@ export default function UserMenu({ currentUser }) {
           )}
         </DropdownMenuContent>
       </DropdownMenu>
-     
     </div>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import axios from "axios";
 import { useCallback, useState } from "react";
 
@@ -11,12 +10,10 @@ import Modal from "./Modal";
 import Input from "../inputs/Input";
 import { toast } from "react-hot-toast";
 import useLoginModal from "@/hooks/useLoginModal";
-import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 
 export default function RegistgerModal() {
   const [open, setOpen] = useState(false);
-  const router = useRouter();
 
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
@@ -31,18 +28,18 @@ export default function RegistgerModal() {
   const onSubmit = async (data) => {
     setIsLoading(true);
     axios
-    .post("/api/register", data)
-    .then(() => {
-      toast.success("Success Regesteration!");
-      registerModal.onClose();
-      loginModal.onOpen();
-    })
-    .catch((error) => {
-      toast.error(error?.response.data.error || "Something Went Wrong!");
-    })
-    .finally(() => { 
-      setIsLoading(false);
-    });
+      .post("/api/register", data)
+      .then(() => {
+        toast.success("Success Regesteration!");
+        registerModal.onClose();
+        loginModal.onOpen();
+      })
+      .catch((error) => {
+        toast.error(error?.response.data.error || "Something Went Wrong!");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const toggle = useCallback(() => {
