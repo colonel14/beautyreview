@@ -1,3 +1,4 @@
+import getCurrentUser from "@/actions/getCurrentUser";
 import SearchInput from "@/components/SearchInput";
 import prismadb from "@/lib/prismadb";
 import Image from "next/image";
@@ -5,6 +6,7 @@ import Link from "next/link";
 import React from "react";
 
 async function SearchPage({ searchParams }) {
+  const currentUser = await getCurrentUser();
   const products = await prismadb.product.findMany({
     where: {
       OR: [
@@ -44,7 +46,7 @@ async function SearchPage({ searchParams }) {
           </div>
         </div>
       </div>
-      <SearchInput />
+      <SearchInput currentUser={currentUser} />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {/* Loop over Products */}
         {products &&
