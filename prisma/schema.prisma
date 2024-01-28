@@ -37,11 +37,7 @@ enum Role {
 model Recommendation {
   id               String    @id @default(cuid())
   userId           String    @unique
-  selectedType     String?   
   selectedCategory String    @db.Text
-  skinType         String?
-  budget           String?   
-  wantsTopRated    String? 
   user                User      @relation(fields: [userId], references: [id])
   @@fulltext([selectedCategory])
 }
