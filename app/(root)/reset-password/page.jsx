@@ -4,7 +4,6 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-hot-toast";
-import { v4 as uuidv4 } from "uuid";
 
 import {
   Form,
@@ -16,33 +15,13 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import resetPassword from "@/actions/resetPassword";
 
 const ResetSchema = z.object({
   email: z.string().email({
     message: "Email is required",
   }),
 });
-
-export const generatePasswordResetToken = async (email) => {
-  // Generate Random number as a password token
-  const token = uuidv4();
-
-  // Make this token Expires in 1hr this is for security so that user cannot reset password after one hour of sending the email
-  const expires = new Date(new Date().getTime() + 3600 * 1000);
-
-  // Update the user that forget his email and add password token to him
-  const passwordResetToken = await db.user.update({
-    where: {
-      email: email,
-    },
-    data: {
-      token,
-      expires,
-    },
-  });
-
-  return passwordResetToken;
-};
 
 function ResetPasswordPage() {
   const form = useForm({
@@ -54,28 +33,16 @@ function ResetPasswordPage() {
   const onSubmit = async (values) => {
     const { email } = values;
 
-    try {
-      // Check if we have user with this email first
-      const user = await db.user.findUnique({ where: { email } });
-      // If we don't have user with this email display an error message of Email is not Exists
-      if (!user) {
-        toast.error("We don't have user with this Email");
-        return;
-      }
+    const result = await resetPassword(email);
 
-      // If user Exists Generate token for password change
-      const passwordResetToken = await generatePasswordResetToken(email);
-      await sendPasswordResetEmail(
-        passwordResetToken.email,
-        passwordResetToken.token
-      );
+    console.log(result);
 
-      return { success: "Reset email sent!" };
-    } catch {
-      return null;
+    if (result?.error) {
+      toast.error(result.error);
     }
-
-    console.log(email);
+    if (result?.success) {
+      toast.success(result.success);
+    }
   };
 
   return (

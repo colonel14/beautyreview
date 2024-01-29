@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button } from "@/components/ui/button";
@@ -18,14 +18,27 @@ import {
 import { Input } from "@/components/ui/input";
 
 export const NewPasswordSchema = z.object({
-  password: z.string().min(6, {
-    message: "Minimum of 6 characters required",
-  }),
+  password: z
+    .string()
+    .min(8, { message: "Minimum of 8 characters required" })
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+      {
+        message:
+          "Must contain at least one uppercase, one lowercase, one digit, and one special character",
+      }
+    ),
 });
 
 function NewPasswordPage() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const token = searchParams.get("token");
+
+  // If there is no token redirect the use to the homepage
+  if (!token) {
+    router.push("/");
+  }
 
   const form = useForm({
     resolver: zodResolver(NewPasswordSchema),

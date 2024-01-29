@@ -22,14 +22,28 @@ import useLoginModal from "@/hooks/useLoginModal";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 
 const formSchema = z.object({
-  overallSatisfaction: z.number(),
-  reasonablyPriced: z.number(),
-  qualityRating: z.number(),
-  effectivenessRating: z.number(),
-  packagingRating: z.number(),
-  skinMatchRating: z.number(),
+  overallSatisfaction: z.number().refine((value) => value >= 1, {
+    message: "You must rate the product!",
+  }),
+  reasonablyPriced: z.number().refine((value) => value >= 1, {
+    message: "You must rate the product!",
+  }),
+  qualityRating: z.number().refine((value) => value >= 1, {
+    message: "You must rate the product!",
+  }),
+  effectivenessRating: z.number().refine((value) => value >= 1, {
+    message: "You must rate the product!",
+  }),
+  packagingRating: z.number().refine((value) => value >= 1, {
+    message: "You must rate the product!",
+  }),
+  skinMatchRating: z.number().refine((value) => value >= 1, {
+    message: "You must rate the product!",
+  }),
   recommendToOthers: z.string(),
-  comment: z.string().min(1),
+  comment: z.string().min(1, {
+    message: "Comment is required!",
+  }),
 });
 
 const ReviewForm = ({ productId, userId }) => {
@@ -246,7 +260,7 @@ const ReviewForm = ({ productId, userId }) => {
             name="comment"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Write you comment here</FormLabel>
+                <FormLabel>Write your comment here</FormLabel>
                 <FormControl>
                   <Textarea
                     disabled={loading}
