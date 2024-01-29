@@ -64,7 +64,7 @@ export default function LoginModal() {
           type="email"
           required
           disabled={isLoading}
-          register={register}
+          register={register('email')}
           errors={errors}
         />
         <Input
@@ -73,7 +73,7 @@ export default function LoginModal() {
           type="password"
           required
           disabled={isLoading}
-          register={register}
+          register={register('password')}
           errors={errors}
         />
         <Button
