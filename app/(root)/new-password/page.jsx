@@ -16,6 +16,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import newPassword from "@/actions/newPassword";
+import toast from "react-hot-toast";
 
 export const NewPasswordSchema = z.object({
   password: z
@@ -47,9 +49,19 @@ function NewPasswordPage() {
     },
   });
 
-  const onSubmit = (values) => {
-    setError("");
-    setSuccess("");
+  const onSubmit = async (values) => {
+    const { password } = values;
+    const result = await newPassword(password, token);
+
+    console.log(result);
+
+    if (result?.error) {
+      toast.error(result.error);
+    }
+    if (result?.success) {
+      toast.success(result.success);
+      router.push("/");
+    }
   };
   return (
     <main className="relative py-28">

@@ -35,8 +35,6 @@ function ResetPasswordPage() {
 
     const result = await resetPassword(email);
 
-    console.log(result);
-
     if (result?.error) {
       toast.error(result.error);
     }
