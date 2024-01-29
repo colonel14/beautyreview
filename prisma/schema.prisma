@@ -25,6 +25,8 @@ model User {
   Product               Product[]
   likes                 Like[]    // Relation to track user likes and dislikes
   recommendation        Recommendation?
+  token                 String? @unique 
+  tokenExpires          DateTime? 
 }
 
 enum Role {

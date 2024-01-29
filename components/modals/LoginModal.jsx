@@ -10,6 +10,7 @@ import Input from "../inputs/Input";
 import { useRouter } from "next/navigation";
 import useRegisterModal from "@/hooks/useRegisterModal";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 export default function LoginModal() {
   const router = useRouter();
@@ -83,8 +84,22 @@ export default function LoginModal() {
           Login
         </Button>
       </div>
-      <div className="flex flex-col gap-4 mt-3">
+      <div className="flex flex-col gap-2 mt-3">
         <hr />
+        <div className="text-neutral-500 text-center font-light">
+          <div className="flex flex-row justify-center items-center gap-2">
+            <div>Forgot your password?</div>
+            <div
+              onClick={() => {
+                loginModal.onClose()
+                router.push('/reset-password')
+              }}
+              className="text-neutral-800 cursor-pointer hover:underline"
+            >
+              Reset here
+            </div>
+          </div>
+        </div>
         <div className="text-neutral-500 text-center mb-4 font-light">
           <div className="flex flex-row justify-center items-center gap-2">
             <div>You dont have an account?</div>

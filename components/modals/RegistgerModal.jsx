@@ -62,7 +62,13 @@ export default function RegistgerModal() {
           disabled={isLoading}
           errors={errors}
           required
-          register={register}
+          register={register("email", {
+            required: "Email is required",
+            pattern: {
+              value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/,
+              message: "Invalid email address (e.g:john.doe@example.com)",
+            },
+          })}
         />
         <Input
           id="name"
@@ -70,7 +76,9 @@ export default function RegistgerModal() {
           disabled={isLoading}
           errors={errors}
           required
-          register={register}
+          register={register("name", {
+            required: "Name is required",
+          })}
         />
         <Input
           id="password"
@@ -79,7 +87,18 @@ export default function RegistgerModal() {
           disabled={isLoading}
           errors={errors}
           required
-          register={register}
+          register={register("password", {
+            required: "Password is required",
+            minLength: {
+              value: 6,
+              message: "Password must be at least 6 characters",
+            },
+            pattern: {
+              value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
+              message:
+                "Password must contain at least one lowercase, one uppercase, one numeric, and one special character",
+            },
+          })}
         />
         <Button
           onClick={handleSubmit(onSubmit)}

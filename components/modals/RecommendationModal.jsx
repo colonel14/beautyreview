@@ -435,7 +435,7 @@ export default function RecommendationModal({ categories }) {
       disabled={isLoading}
       isOpen={recommendationModal.isOpen}
       onClose={onClose}
-      title="Personal Recommendation"
+      title="Personal Suggestions"
       onSubmit={form.handleSubmit(onSubmit)}
       body={bodyContent}
     />

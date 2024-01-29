@@ -16,9 +16,7 @@ export default function Input({
       <input
         id={id}
         disabled={disabled}
-        {...register(id, {
-          required: { value: required, message: `${id} is Required!` },
-        })}
+        {...register}
         placeholder=" "
         type={type}
         className={`

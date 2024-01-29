@@ -33,7 +33,7 @@ function Navbar({ currentUser }) {
         <Link href="/contact">Contact Us</Link>
         <Link href="/advertise">Advertise</Link>
         <button className="cursor-pointer" onClick={() => showRecommendation()}>
-          Recommendation
+          Suggestions
         </button>
       </div>
       <div className="app__navbar-logo">
@@ -82,7 +82,7 @@ function Navbar({ currentUser }) {
                     className="cursor-pointer font-medium text-pink-default text-xl"
                     onClick={() => showRecommendation()}
                   >
-                    Recommendation
+                    Suggestions
                   </button>
                 </div>
               </SheetHeader>
