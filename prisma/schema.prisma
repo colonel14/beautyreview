@@ -37,10 +37,10 @@ enum Role {
 
 
 model Recommendation {
-  id               String    @id @default(cuid())
-  userId           String    @unique
-  selectedCategory String    @db.Text
-  user                User      @relation(fields: [userId], references: [id])
+  id                  String    @id @default(cuid())
+  userId              String    @unique
+  selectedCategory    String    @db.Text
+  User                User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@fulltext([selectedCategory])
 }
 
